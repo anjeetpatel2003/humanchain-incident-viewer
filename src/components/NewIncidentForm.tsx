@@ -13,6 +13,7 @@ import {
   SelectValue,
 } from './ui/select';
 import { useToast } from '../hooks/use-toast';
+import { motion } from 'framer-motion';
 
 interface NewIncidentFormProps {
   onSubmit: (incident: Omit<Incident, 'id'>) => void;
@@ -23,8 +24,9 @@ const NewIncidentForm = ({ onSubmit }: NewIncidentFormProps) => {
   const [title, setTitle] = useState('');
   const [description, setDescription] = useState('');
   const [severity, setSeverity] = useState<Severity>('Low');
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     
     if (!title.trim() || !description.trim()) {
@@ -36,60 +38,87 @@ const NewIncidentForm = ({ onSubmit }: NewIncidentFormProps) => {
       return;
     }
 
-    const newIncident = {
-      title,
-      description,
-      severity,
-      reported_at: new Date().toISOString(),
-    };
+    setIsSubmitting(true);
+    
+    try {
+      const newIncident = {
+        title,
+        description,
+        severity,
+        reported_at: new Date().toISOString(),
+      };
 
-    onSubmit(newIncident);
-    setTitle('');
-    setDescription('');
-    setSeverity('Low');
-
-    toast({
-      title: "Success",
-      description: "New incident reported successfully",
-    });
+      onSubmit(newIncident);
+      
+      // Reset form
+      setTitle('');
+      setDescription('');
+      setSeverity('Low');
+      
+      toast({
+        title: "Success",
+        description: "New incident reported successfully",
+      });
+    } catch (error) {
+      toast({
+        title: "Error",
+        description: "Failed to submit incident",
+        variant: "destructive",
+      });
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   return (
     <Card className="p-6">
-      <h2 className="text-2xl font-semibold mb-6">Report New Incident</h2>
-      <form onSubmit={handleSubmit} className="space-y-4">
-        <div>
-          <Input
-            placeholder="Incident Title"
-            value={title}
-            onChange={(e) => setTitle(e.target.value)}
+      <motion.div
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ duration: 0.3 }}
+      >
+        <h2 className="text-2xl font-semibold mb-6">Report New Incident</h2>
+        <form onSubmit={handleSubmit} className="space-y-4">
+          <div className="space-y-2">
+            <label className="text-sm font-medium text-gray-700">Title</label>
+            <Input
+              placeholder="Incident Title"
+              value={title}
+              onChange={(e) => setTitle(e.target.value)}
+              className="w-full"
+            />
+          </div>
+          <div className="space-y-2">
+            <label className="text-sm font-medium text-gray-700">Description</label>
+            <Textarea
+              placeholder="Incident Description"
+              value={description}
+              onChange={(e) => setDescription(e.target.value)}
+              className="w-full min-h-[100px]"
+            />
+          </div>
+          <div className="space-y-2">
+            <label className="text-sm font-medium text-gray-700">Severity</label>
+            <Select value={severity} onValueChange={(value) => setSeverity(value as Severity)}>
+              <SelectTrigger className="w-full">
+                <SelectValue placeholder="Select severity" />
+              </SelectTrigger>
+              <SelectContent>
+                <SelectItem value="Low">Low</SelectItem>
+                <SelectItem value="Medium">Medium</SelectItem>
+                <SelectItem value="High">High</SelectItem>
+              </SelectContent>
+            </Select>
+          </div>
+          <Button
+            type="submit"
             className="w-full"
-          />
-        </div>
-        <div>
-          <Textarea
-            placeholder="Incident Description"
-            value={description}
-            onChange={(e) => setDescription(e.target.value)}
-            className="w-full min-h-[100px]"
-          />
-        </div>
-        <div>
-          <Select value={severity} onValueChange={(value) => setSeverity(value as Severity)}>
-            <SelectTrigger>
-              <SelectValue placeholder="Select severity" />
-            </SelectTrigger>
-            <SelectContent>
-              <SelectItem value="Low">Low</SelectItem>
-              <SelectItem value="Medium">Medium</SelectItem>
-              <SelectItem value="High">High</SelectItem>
-            </SelectContent>
-          </Select>
-        </div>
-        <Button type="submit" className="w-full">
-          Submit Incident
-        </Button>
-      </form>
+            disabled={isSubmitting}
+          >
+            {isSubmitting ? 'Submitting...' : 'Submit Incident'}
+          </Button>
+        </form>
+      </motion.div>
     </Card>
   );
 };
