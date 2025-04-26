@@ -32,7 +32,7 @@ const Index = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gray-50">
+    <div className="min-h-screen bg-gray-50 dark:bg-gray-900">
       <Navbar />
       <div className="max-w-7xl mx-auto px-4 pt-24 pb-8">
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
@@ -57,8 +57,8 @@ const Index = () => {
               transition={{ delay: 0.2 }}
             >
               {filteredAndSortedIncidents.length === 0 ? (
-                <div className="text-center py-12 bg-white rounded-lg border border-gray-100">
-                  <p className="text-gray-500 text-lg">No incidents found matching the current filters.</p>
+                <div className="text-center py-12 bg-white dark:bg-gray-800 rounded-lg border border-gray-100 dark:border-gray-700">
+                  <p className="text-gray-500 dark:text-gray-400 text-lg">No incidents found matching the current filters.</p>
                 </div>
               ) : (
                 filteredAndSortedIncidents.map((incident) => (

@@ -3,9 +3,16 @@ import { AlertTriangle, Moon, Sun } from 'lucide-react';
 import { motion } from 'framer-motion';
 import { Button } from './ui/button';
 import { useTheme } from 'next-themes';
+import { useEffect, useState } from 'react';
 
 const Navbar = () => {
   const { theme, setTheme } = useTheme();
+  const [mounted, setMounted] = useState(false);
+  
+  // useEffect only runs on the client, so now we can safely show the UI
+  useEffect(() => {
+    setMounted(true);
+  }, []);
 
   return (
     <motion.nav 
@@ -33,11 +40,11 @@ const Navbar = () => {
           onClick={() => setTheme(theme === 'dark' ? 'light' : 'dark')}
           className="text-white hover:bg-white/20"
         >
-          {theme === 'dark' ? (
+          {mounted && (theme === 'dark' ? (
             <Sun className="h-5 w-5" />
           ) : (
             <Moon className="h-5 w-5" />
-          )}
+          ))}
         </Button>
       </div>
     </motion.nav>
