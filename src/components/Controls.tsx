@@ -26,15 +26,15 @@ const Controls = ({
     <motion.div 
       initial={{ opacity: 0, y: -20 }}
       animate={{ opacity: 1, y: 0 }}
-      className="flex flex-col sm:flex-row gap-4 mb-6 p-4 bg-gradient-to-br from-white to-gray-50 rounded-xl shadow-sm border border-gray-100"
+      className="flex flex-col sm:flex-row gap-4 mb-6 p-4 bg-gradient-to-br from-white to-gray-50 dark:from-gray-800 dark:to-gray-900 rounded-xl shadow-sm border border-gray-100 dark:border-gray-700"
     >
       <div className="flex items-center gap-3">
-        <span className="text-sm font-medium text-gray-700">Filter by:</span>
+        <span className="text-sm font-medium text-gray-700 dark:text-gray-300">Filter by:</span>
         <Select value={selectedSeverity} onValueChange={onSeverityChange}>
-          <SelectTrigger className="w-[180px] bg-white/50 backdrop-blur-sm hover:bg-white transition-colors">
+          <SelectTrigger className="w-[180px] bg-white/50 dark:bg-gray-800/50 backdrop-blur-sm hover:bg-white dark:hover:bg-gray-700 transition-colors dark:text-gray-200">
             <SelectValue placeholder="Filter by severity" />
           </SelectTrigger>
-          <SelectContent>
+          <SelectContent className="dark:bg-gray-800 dark:border-gray-700">
             <SelectItem value="all">All Severities</SelectItem>
             <SelectItem value="Low">Low</SelectItem>
             <SelectItem value="Medium">Medium</SelectItem>
@@ -44,12 +44,12 @@ const Controls = ({
       </div>
 
       <div className="flex items-center gap-3">
-        <span className="text-sm font-medium text-gray-700">Sort by:</span>
+        <span className="text-sm font-medium text-gray-700 dark:text-gray-300">Sort by:</span>
         <Select value={sortOrder} onValueChange={onSortOrderChange}>
-          <SelectTrigger className="w-[180px] bg-white/50 backdrop-blur-sm hover:bg-white transition-colors">
+          <SelectTrigger className="w-[180px] bg-white/50 dark:bg-gray-800/50 backdrop-blur-sm hover:bg-white dark:hover:bg-gray-700 transition-colors dark:text-gray-200">
             <SelectValue placeholder="Sort by date" />
           </SelectTrigger>
-          <SelectContent>
+          <SelectContent className="dark:bg-gray-800 dark:border-gray-700">
             <SelectItem value="newest">Newest First</SelectItem>
             <SelectItem value="oldest">Oldest First</SelectItem>
           </SelectContent>

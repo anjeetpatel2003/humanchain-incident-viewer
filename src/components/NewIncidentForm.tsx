@@ -71,39 +71,39 @@ const NewIncidentForm = ({ onSubmit }: NewIncidentFormProps) => {
   };
 
   return (
-    <Card className="p-6">
+    <Card className="p-6 dark:bg-gray-800 dark:border-gray-700">
       <motion.div
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ duration: 0.3 }}
       >
-        <h2 className="text-2xl font-semibold mb-6">Report New Incident</h2>
+        <h2 className="text-2xl font-semibold mb-6 dark:text-white">Report New Incident</h2>
         <form onSubmit={handleSubmit} className="space-y-4">
           <div className="space-y-2">
-            <label className="text-sm font-medium text-gray-700">Title</label>
+            <label className="text-sm font-medium text-gray-700 dark:text-gray-300">Title</label>
             <Input
               placeholder="Incident Title"
               value={title}
               onChange={(e) => setTitle(e.target.value)}
-              className="w-full"
+              className="w-full dark:bg-gray-700 dark:border-gray-600 dark:text-gray-200 dark:placeholder:text-gray-400"
             />
           </div>
           <div className="space-y-2">
-            <label className="text-sm font-medium text-gray-700">Description</label>
+            <label className="text-sm font-medium text-gray-700 dark:text-gray-300">Description</label>
             <Textarea
               placeholder="Incident Description"
               value={description}
               onChange={(e) => setDescription(e.target.value)}
-              className="w-full min-h-[100px]"
+              className="w-full min-h-[100px] dark:bg-gray-700 dark:border-gray-600 dark:text-gray-200 dark:placeholder:text-gray-400"
             />
           </div>
           <div className="space-y-2">
-            <label className="text-sm font-medium text-gray-700">Severity</label>
+            <label className="text-sm font-medium text-gray-700 dark:text-gray-300">Severity</label>
             <Select value={severity} onValueChange={(value) => setSeverity(value as Severity)}>
-              <SelectTrigger className="w-full">
+              <SelectTrigger className="w-full dark:bg-gray-700 dark:border-gray-600 dark:text-gray-200">
                 <SelectValue placeholder="Select severity" />
               </SelectTrigger>
-              <SelectContent>
+              <SelectContent className="dark:bg-gray-800 dark:border-gray-700">
                 <SelectItem value="Low">Low</SelectItem>
                 <SelectItem value="Medium">Medium</SelectItem>
                 <SelectItem value="High">High</SelectItem>

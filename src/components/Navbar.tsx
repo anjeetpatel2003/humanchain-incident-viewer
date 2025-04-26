@@ -39,6 +39,7 @@ const Navbar = () => {
           size="icon"
           onClick={() => setTheme(theme === 'dark' ? 'light' : 'dark')}
           className="text-white hover:bg-white/20"
+          aria-label={`Switch to ${theme === 'dark' ? 'light' : 'dark'} mode`}
         >
           {mounted && (theme === 'dark' ? (
             <Sun className="h-5 w-5" />

@@ -34,7 +34,7 @@ const IncidentCard = ({ incident }: IncidentCardProps) => {
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.3 }}
     >
-      <Card className="group hover:shadow-lg transition-all duration-300 transform hover:-translate-y-1">
+      <Card className="group hover:shadow-lg transition-all duration-300 transform hover:-translate-y-1 dark:bg-gray-800 dark:border-gray-700">
         <div className="p-6 relative overflow-hidden">
           <div className="absolute top-0 right-0 w-24 h-24 -mr-8 -mt-8 bg-gradient-to-br from-white/5 to-white/10 rounded-full blur-2xl" />
           
@@ -44,12 +44,12 @@ const IncidentCard = ({ incident }: IncidentCardProps) => {
                 <span className={`${severityColor} text-white text-xs px-3 py-1 rounded-full font-medium`}>
                   {incident.severity}
                 </span>
-                <span className="text-sm text-gray-500 font-medium">
+                <span className="text-sm text-gray-500 dark:text-gray-400 font-medium">
                   {format(new Date(incident.reported_at), 'MMM d, yyyy')}
                 </span>
               </div>
               
-              <h3 className="text-lg font-semibold text-gray-800 mb-2 group-hover:text-indigo-600 transition-colors">
+              <h3 className="text-lg font-semibold text-gray-800 dark:text-gray-100 mb-2 group-hover:text-indigo-600 dark:group-hover:text-indigo-400 transition-colors">
                 {incident.title}
               </h3>
               
@@ -60,7 +60,7 @@ const IncidentCard = ({ incident }: IncidentCardProps) => {
                     animate={{ height: 'auto', opacity: 1 }}
                     exit={{ height: 0, opacity: 0 }}
                     transition={{ duration: 0.2 }}
-                    className="text-gray-600 text-sm leading-relaxed"
+                    className="text-gray-600 dark:text-gray-300 text-sm leading-relaxed"
                   >
                     {incident.description}
                   </motion.div>
@@ -72,12 +72,12 @@ const IncidentCard = ({ incident }: IncidentCardProps) => {
               variant="ghost"
               size="sm"
               onClick={() => setIsExpanded(!isExpanded)}
-              className="ml-4 hover:bg-gray-100"
+              className="ml-4 hover:bg-gray-100 dark:hover:bg-gray-700 text-gray-600 dark:text-gray-300"
             >
               {isExpanded ? (
-                <ChevronUp className="h-4 w-4 text-gray-600" />
+                <ChevronUp className="h-4 w-4" />
               ) : (
-                <ChevronDown className="h-4 w-4 text-gray-600" />
+                <ChevronDown className="h-4 w-4" />
               )}
             </Button>
           </div>
