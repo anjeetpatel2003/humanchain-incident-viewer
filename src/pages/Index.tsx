@@ -6,6 +6,7 @@ import Controls from '../components/Controls';
 import NewIncidentForm from '../components/NewIncidentForm';
 import { Incident, SortOrder } from '../types/incident';
 import { mockIncidents } from '../data/mockIncidents';
+import { motion } from 'framer-motion';
 
 const Index = () => {
   const [incidents, setIncidents] = useState<Incident[]>(mockIncidents);
