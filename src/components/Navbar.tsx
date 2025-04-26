@@ -1,8 +1,12 @@
 
-import { AlertTriangle } from 'lucide-react';
+import { AlertTriangle, Moon, Sun } from 'lucide-react';
 import { motion } from 'framer-motion';
+import { Button } from './ui/button';
+import { useTheme } from 'next-themes';
 
 const Navbar = () => {
+  const { theme, setTheme } = useTheme();
+
   return (
     <motion.nav 
       initial={{ y: -100 }}
@@ -22,6 +26,19 @@ const Navbar = () => {
             <p className="text-indigo-100 text-sm">AI Safety Incident Dashboard</p>
           </div>
         </div>
+
+        <Button
+          variant="ghost"
+          size="icon"
+          onClick={() => setTheme(theme === 'dark' ? 'light' : 'dark')}
+          className="text-white hover:bg-white/20"
+        >
+          {theme === 'dark' ? (
+            <Sun className="h-5 w-5" />
+          ) : (
+            <Moon className="h-5 w-5" />
+          )}
+        </Button>
       </div>
     </motion.nav>
   );
