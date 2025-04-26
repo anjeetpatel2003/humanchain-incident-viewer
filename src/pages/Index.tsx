@@ -33,30 +33,44 @@ const Index = () => {
   return (
     <div className="min-h-screen bg-gray-50">
       <Navbar />
-      <div className="max-w-7xl mx-auto px-4 pt-20 pb-8">
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 mt-8">
-          <div className="lg:col-span-2">
-            <h1 className="text-3xl font-bold mb-6">AI Safety Incidents</h1>
+      <div className="max-w-7xl mx-auto px-4 pt-24 pb-8">
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+          <div className="lg:col-span-2 space-y-6">
+            <div className="flex items-center justify-between">
+              <h1 className="text-3xl font-bold bg-gradient-to-r from-indigo-600 to-purple-600 bg-clip-text text-transparent">
+                AI Safety Incidents
+              </h1>
+            </div>
+            
             <Controls
               selectedSeverity={selectedSeverity}
               onSeverityChange={setSelectedSeverity}
               sortOrder={sortOrder}
               onSortOrderChange={setSortOrder}
             />
-            <div className="space-y-4">
+            
+            <motion.div 
+              className="space-y-4"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ delay: 0.2 }}
+            >
               {filteredAndSortedIncidents.length === 0 ? (
-                <div className="text-center py-8 text-gray-500">
-                  No incidents found matching the current filters.
+                <div className="text-center py-12 bg-white rounded-lg border border-gray-100">
+                  <p className="text-gray-500 text-lg">No incidents found matching the current filters.</p>
                 </div>
               ) : (
                 filteredAndSortedIncidents.map((incident) => (
                   <IncidentCard key={incident.id} incident={incident} />
                 ))
               )}
-            </div>
+            </motion.div>
           </div>
+          
           <div className="lg:col-span-1">
-            <NewIncidentForm onSubmit={handleNewIncident} />
+            <div className="sticky top-24">
+              <NewIncidentForm onSubmit={handleNewIncident} />
+            </div>
           </div>
         </div>
       </div>

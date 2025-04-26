@@ -26,12 +26,12 @@ const Controls = ({
     <motion.div 
       initial={{ opacity: 0, y: -20 }}
       animate={{ opacity: 1, y: 0 }}
-      className="flex flex-col sm:flex-row gap-4 mb-6 p-4 bg-white rounded-lg shadow-sm"
+      className="flex flex-col sm:flex-row gap-4 mb-6 p-4 bg-gradient-to-br from-white to-gray-50 rounded-xl shadow-sm border border-gray-100"
     >
-      <div className="flex items-center gap-2">
-        <span className="text-sm font-medium text-gray-700">Filter:</span>
+      <div className="flex items-center gap-3">
+        <span className="text-sm font-medium text-gray-700">Filter by:</span>
         <Select value={selectedSeverity} onValueChange={onSeverityChange}>
-          <SelectTrigger className="w-[180px] bg-white hover:bg-gray-50 transition-colors">
+          <SelectTrigger className="w-[180px] bg-white/50 backdrop-blur-sm hover:bg-white transition-colors">
             <SelectValue placeholder="Filter by severity" />
           </SelectTrigger>
           <SelectContent>
@@ -43,10 +43,10 @@ const Controls = ({
         </Select>
       </div>
 
-      <div className="flex items-center gap-2">
-        <span className="text-sm font-medium text-gray-700">Sort:</span>
+      <div className="flex items-center gap-3">
+        <span className="text-sm font-medium text-gray-700">Sort by:</span>
         <Select value={sortOrder} onValueChange={onSortOrderChange}>
-          <SelectTrigger className="w-[180px] bg-white hover:bg-gray-50 transition-colors">
+          <SelectTrigger className="w-[180px] bg-white/50 backdrop-blur-sm hover:bg-white transition-colors">
             <SelectValue placeholder="Sort by date" />
           </SelectTrigger>
           <SelectContent>

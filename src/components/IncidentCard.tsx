@@ -14,11 +14,11 @@ interface IncidentCardProps {
 const getSeverityColor = (severity: string) => {
   switch (severity.toLowerCase()) {
     case 'low':
-      return 'bg-severity-low';
+      return 'bg-emerald-500';
     case 'medium':
-      return 'bg-severity-medium';
+      return 'bg-amber-500';
     case 'high':
-      return 'bg-severity-high';
+      return 'bg-red-500';
     default:
       return 'bg-gray-500';
   }
@@ -34,46 +34,53 @@ const IncidentCard = ({ incident }: IncidentCardProps) => {
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.3 }}
     >
-      <Card className="w-full p-4 hover:shadow-md transition-all duration-200 border-l-4 animate-fade-in relative overflow-hidden"
-        style={{ borderLeftColor: incident.severity === 'High' ? '#ef4444' : incident.severity === 'Medium' ? '#f59e0b' : '#10b981' }}>
-        <div className="flex items-start justify-between">
-          <div className="flex-1">
-            <div className="flex items-center space-x-2 mb-2">
-              <span className={`${severityColor} text-white text-xs px-2 py-1 rounded-full font-medium`}>
-                {incident.severity}
-              </span>
-              <span className="text-sm text-gray-500">
-                {format(new Date(incident.reported_at), 'MMM d, yyyy')}
-              </span>
+      <Card className="group hover:shadow-lg transition-all duration-300 transform hover:-translate-y-1">
+        <div className="p-6 relative overflow-hidden">
+          <div className="absolute top-0 right-0 w-24 h-24 -mr-8 -mt-8 bg-gradient-to-br from-white/5 to-white/10 rounded-full blur-2xl" />
+          
+          <div className="flex items-start justify-between">
+            <div className="flex-1">
+              <div className="flex items-center space-x-2 mb-3">
+                <span className={`${severityColor} text-white text-xs px-3 py-1 rounded-full font-medium`}>
+                  {incident.severity}
+                </span>
+                <span className="text-sm text-gray-500 font-medium">
+                  {format(new Date(incident.reported_at), 'MMM d, yyyy')}
+                </span>
+              </div>
+              
+              <h3 className="text-lg font-semibold text-gray-800 mb-2 group-hover:text-indigo-600 transition-colors">
+                {incident.title}
+              </h3>
+              
+              <AnimatePresence initial={false}>
+                {isExpanded && (
+                  <motion.div
+                    initial={{ height: 0, opacity: 0 }}
+                    animate={{ height: 'auto', opacity: 1 }}
+                    exit={{ height: 0, opacity: 0 }}
+                    transition={{ duration: 0.2 }}
+                    className="text-gray-600 text-sm leading-relaxed"
+                  >
+                    {incident.description}
+                  </motion.div>
+                )}
+              </AnimatePresence>
             </div>
-            <h3 className="text-lg font-semibold text-gray-800 mb-2 hover:text-primary transition-colors">
-              {incident.title}
-            </h3>
-            <AnimatePresence initial={false}>
-              {isExpanded && (
-                <motion.div
-                  initial={{ height: 0, opacity: 0 }}
-                  animate={{ height: 'auto', opacity: 1 }}
-                  exit={{ height: 0, opacity: 0 }}
-                  className="text-gray-600 text-sm"
-                >
-                  {incident.description}
-                </motion.div>
+            
+            <Button
+              variant="ghost"
+              size="sm"
+              onClick={() => setIsExpanded(!isExpanded)}
+              className="ml-4 hover:bg-gray-100"
+            >
+              {isExpanded ? (
+                <ChevronUp className="h-4 w-4 text-gray-600" />
+              ) : (
+                <ChevronDown className="h-4 w-4 text-gray-600" />
               )}
-            </AnimatePresence>
+            </Button>
           </div>
-          <Button
-            variant="ghost"
-            size="sm"
-            className="ml-4 hover:bg-gray-100"
-            onClick={() => setIsExpanded(!isExpanded)}
-          >
-            {isExpanded ? (
-              <ChevronUp className="h-4 w-4 text-gray-600" />
-            ) : (
-              <ChevronDown className="h-4 w-4 text-gray-600" />
-            )}
-          </Button>
         </div>
       </Card>
     </motion.div>
