@@ -1,11 +1,15 @@
 
-import { AlertTriangle, Moon, Sun } from 'lucide-react';
+import { AlertTriangle, Moon, Sun, HelpCircle } from 'lucide-react';
 import { motion } from 'framer-motion';
 import { Button } from './ui/button';
 import { useTheme } from 'next-themes';
 import { useEffect, useState } from 'react';
 
-const Navbar = () => {
+interface NavbarProps {
+  onShowGuide?: () => void;
+}
+
+const Navbar = ({ onShowGuide }: NavbarProps) => {
   const { theme, setTheme } = useTheme();
   const [mounted, setMounted] = useState(false);
   
@@ -34,19 +38,33 @@ const Navbar = () => {
           </div>
         </div>
 
-        <Button
-          variant="ghost"
-          size="icon"
-          onClick={() => setTheme(theme === 'dark' ? 'light' : 'dark')}
-          className="text-white hover:bg-white/20"
-          aria-label={`Switch to ${theme === 'dark' ? 'light' : 'dark'} mode`}
-        >
-          {mounted && (theme === 'dark' ? (
-            <Sun className="h-5 w-5" />
-          ) : (
-            <Moon className="h-5 w-5" />
-          ))}
-        </Button>
+        <div className="flex items-center space-x-2">
+          {onShowGuide && (
+            <Button
+              variant="ghost"
+              size="icon"
+              onClick={onShowGuide}
+              className="text-white hover:bg-white/20"
+              aria-label="Show help guide"
+            >
+              <HelpCircle className="h-5 w-5" />
+            </Button>
+          )}
+
+          <Button
+            variant="ghost"
+            size="icon"
+            onClick={() => setTheme(theme === 'dark' ? 'light' : 'dark')}
+            className="text-white hover:bg-white/20"
+            aria-label={`Switch to ${theme === 'dark' ? 'light' : 'dark'} mode`}
+          >
+            {mounted && (theme === 'dark' ? (
+              <Sun className="h-5 w-5" />
+            ) : (
+              <Moon className="h-5 w-5" />
+            ))}
+          </Button>
+        </div>
       </div>
     </motion.nav>
   );
